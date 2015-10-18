@@ -1,0 +1,19 @@
+development:
+  clients:
+    default:
+      database: melee_dj_development
+      hosts:
+        - localhost:27017
+      options:
+  options:
+
+test:
+  clients:
+    default:
+      database: melee_dj_test
+      hosts:
+        - localhost:27017
+      options:
+        read:
+          mode: primary
+        max_pool_size: 1
