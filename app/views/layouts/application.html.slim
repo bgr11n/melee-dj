@@ -1,0 +1,43 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "vendor/modernizr"
+    = javascript_include_tag "application", 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+  body
+
+    nav.top-bar data-topbar="" role="navigation"
+      ul.title-area
+        li.name
+          h1
+            a href="#{root_path}" Melee Dj
+
+      section.top-bar-section
+        ul.right
+          - if signed_in?
+            li
+              a href="javascript:void(0)"= current_user.email
+            li.divider
+            li
+              a href="#{sign_out_path}" Sign out
+          - else
+            li.divider
+            li
+              a href="#{sign_in_path}" Sign in
+            li.divider
+            li
+              a href="#{sign_up_path}" Sign up
+
+
+    - flash.each do |name, msg|
+      - if msg.is_a?(String)
+          div data-alert='' class="alert-box #{ name.to_s == 'notice' ? 'success' : 'alert' }"
+            span= content_tag :div, msg
+            a.close href="javascript:void(0)" &times;
+
+    == yield
