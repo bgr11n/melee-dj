@@ -36,7 +36,7 @@ html lang="en"
 
     - flash.each do |name, msg|
       - if msg.is_a?(String)
-          div data-alert='' class="alert-box #{ name.to_s == 'notice' ? 'success' : 'alert' }"
+          div data-alert='' class="alert-box #{ name.to_s }"
             span= content_tag :div, msg
             a.close href="javascript:void(0)" &times;
 

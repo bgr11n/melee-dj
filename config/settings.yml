@@ -1,0 +1,7 @@
+development:
+  twitch:
+    api_url: https://api.twitch.tv/kraken
+    redirect_uri: http://localhost:3000/twitch_callback
+    scope: user_read
+    client_id: e20b9hbfvi9bajqbqkhdlcu98efi2q7
+    client_secret: is5zcalbxd36ax37ip9llseogtch6kg

@@ -11,7 +11,7 @@ class Users::SignInController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to root_url, notice: 'Signed Out!'
+    redirect_to root_url, info: 'Signed Out!'
   end
 
   private
@@ -21,10 +21,8 @@ class Users::SignInController < ApplicationController
   end
 
   def save_sign_in
-    if @sign_in.save
-      session[:user_id] = @sign_in.user.id
-      redirect_to root_url, notice: 'Signed In!'
-    end
+    @user ||= @sign_in.user
+    log_in_user if @sign_in.save
   end
 
   def sign_in_params

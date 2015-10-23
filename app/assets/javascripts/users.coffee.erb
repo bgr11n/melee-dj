@@ -1,0 +1,13 @@
+settings = <%= Settings.twitch.to_json %>
+
+console.log settings
+
+# Twitch login button
+$(document).on 'click', '#twitch-sign-in', (e) ->
+  e.preventDefault()
+  window.location = settings['api_url'] + "/oauth2/authorize" +
+    "?response_type=code" +
+    "&client_id=#{settings['client_id']}" +
+    "&redirect_uri=#{settings['redirect_uri']}" +
+    "&scope=#{settings['scope']}" +
+    "&asd=asd"

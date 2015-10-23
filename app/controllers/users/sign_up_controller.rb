@@ -16,7 +16,7 @@ class Users::SignUpController < ApplicationController
   end
 
   def user_save
-    redirect_to sign_in_path, notice: 'Signed Up! You can now Log In.' if @user.save
+    log_in_user if @user.save
   end
 
   def user_params

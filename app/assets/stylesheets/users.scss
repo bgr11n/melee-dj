@@ -1,3 +1,11 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.twitch {
+  background-color: #6441a5;
+  border-color: #5B30A9;
+  &:hover {
+    background-color: #4F3381;
+  }
+}
