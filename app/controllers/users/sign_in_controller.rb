@@ -11,7 +11,7 @@ class Users::SignInController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to root_url, info: 'Signed Out!'
+    redirect_to root_url, flash: { info: 'Signed out!' }
   end
 
   private

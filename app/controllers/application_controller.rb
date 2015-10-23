@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def log_in_user
     session[:user_id] = @user.id
-    redirect_to root_url, success: 'Signed In!'
+    redirect_to root_url, flash: { success: 'Signed In!' }
   end
 
 end
