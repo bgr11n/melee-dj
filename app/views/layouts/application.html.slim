@@ -19,7 +19,7 @@ html lang="en"
 
       section.top-bar-section
         ul.right
-          - if signed_in?
+          - if user_signed_in?
             li
               a href="javascript:void(0)"= current_user.email
             li.divider

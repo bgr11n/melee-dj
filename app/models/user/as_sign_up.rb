@@ -3,12 +3,17 @@ class User::AsSignUp < ActiveType::Record[User]
   attr_accessor :password
 
   validates :password, presence: true, confirmation: true
-  validates :email, presence: true, uniqueness: true
+  validates :email, format: { with: /[a-zA-Z0-9_.+-]+@[\.a-zA-Z0-9-]+/ }, presence: true, uniqueness: true
 
+  before_save :set_source
   before_save :encrypt_password
 
 
   private
+
+  def set_source
+    self.source = 'auth'
+  end
 
   def encrypt_password
     if password.present?
