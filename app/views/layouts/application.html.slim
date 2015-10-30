@@ -21,7 +21,7 @@ html lang="en"
         ul.right
           - if user_signed_in?
             li
-              a href="javascript:void(0)"= current_user.email
+              a href="#{settings_path}"= current_user.nickname
             li.divider
             li
               a href="#{sign_out_path}" Sign out
@@ -37,7 +37,7 @@ html lang="en"
     - flash.each do |name, msg|
       - if msg.is_a?(String)
           div data-alert='' class="alert-box #{ name.to_s }"
-            span= content_tag :div, msg
+            span= content_tag :div, raw(msg)
             a.close href="javascript:void(0)" &times;
 
     == yield

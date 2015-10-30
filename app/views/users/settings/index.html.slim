@@ -1,0 +1,10 @@
+.small-4.small-offset-4.columns
+
+  h1 Edit Profile
+
+  = simple_form_for @user, url: settings_path, method: :put do |f|
+
+    = f.input :nickname
+    = f.input :email
+
+    = f.submit 'Save', class: 'button small'

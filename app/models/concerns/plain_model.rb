@@ -1,5 +1,4 @@
 class PlainModel < ActiveType::Object
-
   def save
     if valid?
       run_callbacks :save do
@@ -9,5 +8,4 @@ class PlainModel < ActiveType::Object
       false
     end
   end
-
 end
