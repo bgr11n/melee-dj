@@ -2,7 +2,7 @@ class User
   class AsSignUp < ActiveType::Record[User]
     attr_accessor :password
 
-    validates :password, presence: true, confirmation: true
+    validates :password, presence: true, confirmation: true, if: lambda { new_record? || !password.nil? }
 
     before_save :set_source
     before_save :set_nickname
@@ -15,7 +15,7 @@ class User
     end
 
     def set_nickname
-      self.nickname = email.match(/^[^\@]*/)[0] unless nickname.blank?
+      self.nickname = email.match(/^[^\@]*/)[0] if nickname.blank?
     end
 
     def encrypt_password

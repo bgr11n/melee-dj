@@ -7,18 +7,18 @@ module Users
 
     def update
       build_user
-      if @user.save
-        redirect_to root_url
-      else
-        render 'index'
-      end
+      save_user || render('index')
     end
 
     private
 
     def build_user
-      @user ||= current_user
+      @user ||= User.find current_user.id
       @user.attributes = user_params
+    end
+
+    def save_user
+      redirect_to root_url if @user.save
     end
 
     def user_params

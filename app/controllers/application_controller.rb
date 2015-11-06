@@ -4,10 +4,6 @@ class ApplicationController < ActionController::Base
   include UsersHelper
   protect_from_forgery with: :exception
 
-  def asd
-    render text: user_signed_in? ? "authenicated" : "not authenicated", layout: 'application'
-  end
-
   private
 
   def authenticate!
@@ -23,4 +19,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_url if user_signed_in?
   end
 
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
 end

@@ -4,7 +4,6 @@ module Users
 
     def new
       build_sign_in
-      p @user
     end
 
     def create

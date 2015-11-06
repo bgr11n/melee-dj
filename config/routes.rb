@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  #constraints: { nickname: /[^\/]+/ }
-
-  root to: 'application#asd'
+  root to: 'users/settings#index'
 
   resources :settings, controller: 'users/settings', only: [:index] do
     put :update, on: :collection
@@ -17,4 +15,5 @@ Rails.application.routes.draw do
   get 'sign_up', to: 'users/sign_up#new', as: 'sign_up'
   resources :sign_up, controller: 'users/sign_up', only: [:create]
 
+  get '/:nickname', to: 'parties#show', constraints: { nickname: /[^\/]+/ }
 end

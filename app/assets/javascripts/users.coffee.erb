@@ -1,5 +1,6 @@
 settings = <%= Settings.twitch.to_json %>
 
+# TODO:: Remove This
 console.log settings
 
 # Twitch login button
@@ -11,3 +12,9 @@ $(document).on 'click', '#twitch-sign-in', (e) ->
     "&redirect_uri=#{settings['redirect_uri']}" +
     "&scope=#{settings['scope']}" +
     "&asd=asd"
+
+# $(document).on 'ready page:load', ->
+#   faye = new Faye.Client('http://localhost:9292/faye/faye');
+#   faye.subscribe "/messages/#{$('#new_message').data('nickname')}", (data) ->
+#     $("#asd").append "<li>" + data['text'] + " - by - " + data['user']['nickname'] + "</li>"
+#     $('#message_text').val ''
