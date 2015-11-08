@@ -1,0 +1,7 @@
+.small-4.small-offset-4.columns
+
+  = render 'users/settings/nav'
+
+  h1 Create Party
+
+  = render 'form', { url: settings_party_path, method: :post }

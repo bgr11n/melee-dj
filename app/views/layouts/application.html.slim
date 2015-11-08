@@ -20,8 +20,18 @@ html lang="en"
       section.top-bar-section
         ul.right
           - if user_signed_in?
-            li
-              a href="#{settings_path}"= current_user.nickname
+            - if current_user.have_party?
+              li.has-form
+                a.button.small.success href="#{settings_party_path}" Edit Party
+            - else
+              li.has-form
+                a.button.success href="#{new_settings_party_path}" Create Party
+            li.has-dropdown
+              a href="javascript:void"= current_user.nickname
+              ul.dropdown
+                li
+                  a href="#{root_settings_path}" Settings
+
             li.divider
             li
               a href="#{sign_out_path}" Sign out

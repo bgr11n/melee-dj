@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   include UsersHelper
   protect_from_forgery with: :exception
 
+  def home
+    render text: 'application#home', layout: 'application'
+  end
+
   private
 
   def authenticate!

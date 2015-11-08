@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  root to: 'users/settings#index'
+  root to: 'application#home'
 
-  resources :settings, controller: 'users/settings', only: [:index] do
-    put :update, on: :collection
+  resource :settings, only: [:index] do
+    root to: 'users/settings/profiles#show'
+    resource :profile, controller: 'users/settings/profiles', only: [:show, :update]
+    resource :party, controller: 'users/settings/parties', only: [:new, :create, :show, :update]
   end
 
   # Auth routes

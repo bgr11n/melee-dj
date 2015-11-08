@@ -13,8 +13,14 @@ class User
   validates :email, uniqueness: true, presence: true, format: { with: /[a-zA-Z0-9_.+-]+@[\.a-zA-Z0-9-]+/ }
   validates :nickname, uniqueness: true
 
+  has_one :party
+
   def has_password? password
     self.password_hash == BCrypt::Engine.hash_secret(password, self.password_salt)
+  end
+
+  def have_party?
+    self.party.present?
   end
 
   SOURCES.each do |_source|
@@ -22,5 +28,4 @@ class User
       _source.to_s == source.to_s
     end
   end
-
 end

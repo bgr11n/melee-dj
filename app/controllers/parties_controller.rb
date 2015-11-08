@@ -1,7 +1,12 @@
 class PartiesController < ApplicationController
   before_action :find_user
+  before_action :authenticate!
 
   def show
+
+  end
+
+  def create
 
   end
 
