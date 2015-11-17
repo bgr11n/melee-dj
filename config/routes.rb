@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'application#home'
 
-  resource :settings, only: [:index] do
+  resource :settings, only: [] do
     root to: 'users/settings/profiles#show'
     resource :profile, controller: 'users/settings/profiles', only: [:show, :update]
     resource :party, controller: 'users/settings/parties', only: [:new, :create, :show, :update]
@@ -17,5 +17,9 @@ Rails.application.routes.draw do
   get 'sign_up', to: 'users/sign_up#new', as: 'sign_up'
   resources :sign_up, controller: 'users/sign_up', only: [:create]
 
-  get '/:nickname', to: 'parties#show', constraints: { nickname: /[^\/]+/ }
+  # Party routes
+  resources :chat, controller: 'parties/chat', only: [] do
+    resources :messages, only: [:index, :create], controller: 'parties/messages'
+  end
+  get '/:nickname', to: 'parties#show', constraints: { nickname: /[^\/]+/ }, as: :show_party
 end

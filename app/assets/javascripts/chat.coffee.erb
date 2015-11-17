@@ -1,0 +1,32 @@
+$(document).on 'ready page:load', ->
+  faye = <%= Rails.application.config.faye.to_json %>
+  client = new Faye.Client(faye.server)
+  chat = $('#chat')
+
+  client.on 'transport:up', () -> console.log 'WebSocket server STATUS: online'
+  client.on 'transport:down', () -> console.log 'WebSocket server STATUS: offline'
+
+  if chat.length > 0
+    #   loadMessagesFor chat
+
+    $(document).on 'submit', '#new_party_message', (e) ->
+      e.preventDefault()
+      $.post @action, $(@).serialize(), (res) =>
+        # TODO: check for errors
+        $(@).find('input[type=text]').val ''
+
+    subscription = client.subscribe "/#{chat.data('user_party')}/party/chat/messages/new", (data) ->
+      for message in JSON.parse(data)
+        renderMessage message
+
+    $(document).on 'ready page:change', ->
+      subscription.cancel()
+
+renderMessage = (message) ->
+  $('#chat').append("<li>#{message.user.nickname} - #{message.text} - #{moment(message.created_at).fromNow()}</li>")
+
+loadMessagesFor = (chat) ->
+  chat_id = chat.data('chat_id')
+  $.get "/chat/#{chat_id}/messages", (res) ->
+    for message in res.messages
+      renderMessage message

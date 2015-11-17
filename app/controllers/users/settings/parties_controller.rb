@@ -10,6 +10,7 @@ module Users
 
       def create
         build_party
+        create_dependancy
         save_party || render('new')
       end
 
@@ -27,6 +28,18 @@ module Users
       def build_party
         @party ||= User.find(current_user.id).party || Party.new(title: "My party", user_id: current_user.id)
         @party.attributes = user_params
+      end
+
+      def create_dependancy
+        create_chat && create_playlist
+      end
+
+      def create_chat
+        Party::Chat.create! party_id: @party.id
+      end
+
+      def create_playlist
+        Party::Playlist.create! party_id: @party.id
       end
 
       def save_party

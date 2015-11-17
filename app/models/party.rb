@@ -2,8 +2,8 @@ class Party
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :active, type: Boolean, default: true
-  field :title, type: String
+  field :active,    type: Boolean,    default: true
+  field :title,     type: String
 
   belongs_to :user
   has_one :chat, class_name: 'Party::Chat'

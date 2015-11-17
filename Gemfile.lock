@@ -103,6 +103,8 @@ GEM
     mime-types (2.6.2)
     mini_portile (0.6.2)
     minitest (5.8.1)
+    momentjs-rails (2.10.3)
+      railties (>= 3.1)
     mongo (2.1.2)
       bson (~> 3.0)
     mongoid (5.0.0)
@@ -211,6 +213,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 2.0)
   jquery-rails
+  momentjs-rails
   mongoid
   rails (= 4.2.4)
   sass-rails (~> 5.0)

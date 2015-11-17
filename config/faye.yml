@@ -1,0 +1,12 @@
+development:
+  server: http://localhost:9292/faye
+  auth_token: "random_secret"
+test:
+  server: http://localhost:9292/faye
+  auth_token: "random_secret"
+qa:
+  server: http://localhost:9292/faye
+  auth_token: "random_secret"
+production:
+  server: http://localhost:9292/faye
+  auth_token: "random_secret"
