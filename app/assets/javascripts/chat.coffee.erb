@@ -9,7 +9,7 @@ $(document).on 'ready page:load', ->
   if chat.length > 0
     #   loadMessagesFor chat
 
-    $(document).on 'submit', '#new_party_message', (e) ->
+    $(document).on 'submit', '#new_chat_message', (e) ->
       e.preventDefault()
       $.post @action, $(@).serialize(), (res) =>
         # TODO: check for errors
@@ -23,7 +23,7 @@ $(document).on 'ready page:load', ->
       subscription.cancel()
 
 renderMessage = (message) ->
-  $('#chat').append("<li>#{message.user.nickname} - #{message.text} - #{moment(message.created_at).fromNow()}</li>")
+  $('#chat').append("<li>#{message.user.nickname} - #{message.text}</li>")
 
 loadMessagesFor = (chat) ->
   chat_id = chat.data('chat_id')

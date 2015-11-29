@@ -4,7 +4,7 @@
     - if party_owner_or_admin
       p Party owner or admin
 
-    = @user.party.playlist.to_json
+    = @user.party.playlist.songs.to_json
 
   .small-4.columns.chat-container
     = render 'chat'

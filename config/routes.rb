@@ -18,8 +18,11 @@ Rails.application.routes.draw do
   resources :sign_up, controller: 'users/sign_up', only: [:create]
 
   # Party routes
-  resources :chat, controller: 'parties/chat', only: [] do
+  resources :chats, controller: 'parties/chats', only: [] do
     resources :messages, only: [:index, :create], controller: 'parties/messages'
+  end
+  resources :playlists, controller: 'parties/playlists', only: [] do
+    resources :songs, only: [:index, :create], controller: 'parties/songs'
   end
   get '/:nickname', to: 'parties#show', constraints: { nickname: /[^\/]+/ }, as: :show_party
 end

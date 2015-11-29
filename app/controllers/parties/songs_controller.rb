@@ -1,5 +1,5 @@
 module Parties
-  class ChatController < ApplicationController
+  class SongsController < ApplicationController
     before_action :authenticate!
 
   end

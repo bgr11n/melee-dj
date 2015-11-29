@@ -9,6 +9,7 @@ module Parties
     end
 
     def index
+      # MB we don't need this
       render json: { messages: @chat.messages }
     end
 
@@ -33,7 +34,7 @@ module Parties
     end
 
     def message_params
-      params[:party_message] ? params[:party_message].permit(:text) : {}
+      params[:chat_message] ? params[:chat_message].permit(:text) : {}
     end
   end
 end
