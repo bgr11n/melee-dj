@@ -2,7 +2,7 @@ class @PartyVM
   constructor: (data) ->
     @nickname = data.nickname
     @faye = data.faye
-    @client = new Faye.Client(@faye.server)
+    @client = new Faye.Client @faye.server
     @chat = new ChatVM @
     @playlist = new PlaylistVM @
 
@@ -18,7 +18,6 @@ class PlaylistVM
           @newUri ''
 
     @subscription = @party.client.subscribe "/#{@party.nickname}/party/playlist/songs/new", (data) =>
-      console.log data
       for song in JSON.parse(data)
         @songs.push new SongVM(song)
 
@@ -38,7 +37,6 @@ class ChatVM
           @newText ''
 
     @subscription = @party.client.subscribe "/#{@party.nickname}/party/chat/messages/new", (data) =>
-      console.log data
       for message in JSON.parse(data)
         @messages.push new MessageVM(message)
 
