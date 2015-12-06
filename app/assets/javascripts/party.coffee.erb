@@ -1,0 +1,37 @@
+class @PartyVM
+  constructor: (data) ->
+    @faye = <%= Rails.application.config.faye.to_json %>
+    @client = new Faye.Client(@faye.server)
+    @chat = new ChatVM(data.nickname, @)
+
+class ChatVM
+  constructor: (nickname, party) ->
+    @nickname = nickname
+    @messages = ko.observableArray []
+    @newText = ko.observable ''
+
+    @sendText = (data) =>
+      if @newText().length > 0
+        $.post data.action, { 'chat_message': { 'text': @newText() } }, (res) =>
+          @newText ''
+          console.log 'jobs done!'
+
+    @subscription = party.client.subscribe "/#{@nickname}/party/chat/messages/new", (data) =>
+      for message in JSON.parse(data)
+        @messages.push new MessageVM(message)
+
+    $(document).on 'ready page:change', =>
+      # Sure we need this?
+      @subscription.cancel()
+
+class MessageVM
+  constructor: (data) ->
+    @text = data.text
+    @created = data.created_at
+    @user = new UserVM(data.user)
+
+class UserVM
+  constructor: (data) ->
+    @email = data.email
+    @nickname = data.nickname
+    @grand = data.grand

@@ -22,7 +22,7 @@ html lang="en"
           - if user_signed_in?
             - if current_user.have_party?
               li.has-form
-                a.button.small.success href="#{show_party_path(current_user.nickname)}"= current_user.party.title
+                a.button.small.success data-no-turbolink="true" href="#{show_party_path(current_user.nickname)}"= current_user.party.title
             - else
               li.has-form
                 a.button.success href="#{new_settings_party_path}" Create Party

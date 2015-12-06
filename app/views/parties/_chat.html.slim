@@ -1,10 +1,15 @@
 h4 Chat
 
-ul#chat data-chat_id="#{@party.chat.id}" data-user_party="#{@user.nickname}"
+div data-bind="with: chat"
+  ul#chat data-bind="foreach: messages"
+    li
+      span data-bind="text: text"
+      span &nbsp;-&nbsp;
+      span data-bind="text: user.nickname"
 
-= simple_form_for Chat::Message.new, url: chat_messages_path(@party.chat.id) do |f|
-  .row.collapse
-    .small-10.columns
-      = f.input :text, label: false
-    .small-2.columns
-      = f.submit 'Chat', class: 'button postfix'
+  = simple_form_for Chat::Message.new, url: chat_messages_path(@party.chat.id), html: { 'data-bind' => 'submit: sendText' } do |f|
+    .row.collapse
+      .small-10.columns
+        = f.input :text, label: false, input_html: { 'data-bind' => 'value: newText' }
+      .small-2.columns
+        = f.submit 'Chat', class: 'button postfix'

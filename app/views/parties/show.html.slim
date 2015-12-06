@@ -1,4 +1,4 @@
-.row
+.row#playlist
   .small-8.columns
     h4 Playlist
     - if party_owner_or_admin
@@ -8,3 +8,13 @@
 
   .small-4.columns.chat-container
     = render 'chat'
+
+javascript:
+  $(document).on('ready page:load', function () {
+    if ($('#playlist').length > 0) {
+      data = {}
+      data['nickname'] = #{{ @user.nickname.to_json }}
+
+      ko.applyBindings(new PartyVM(data));
+    };
+  });

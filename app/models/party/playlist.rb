@@ -4,6 +4,6 @@ class Party
     include Mongoid::Timestamps
 
     belongs_to :party
-    has_many :songs
+    has_many :songs,          class_name: 'Playlist::Song'
   end
 end

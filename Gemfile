@@ -34,6 +34,7 @@ gem 'mongoid'
 gem 'bcrypt'
 gem 'active_type'
 gem "slim-rails"
+gem 'knockoutjs-rails'
 gem 'simple_form'
 gem 'httparty'
 gem 'settingslogic'

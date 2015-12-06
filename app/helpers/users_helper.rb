@@ -2,7 +2,11 @@ require "net/http"
 
 module UsersHelper
   def party_owner_or_admin
-    user_signed_in? && (current_user.id == @party.user_id || current_user.grand?)
+    user_signed_in? && (party_owner || current_user.grand?)
+  end
+
+  def party_owner
+    current_user.id == @party.user_id
   end
 
   def current_user
