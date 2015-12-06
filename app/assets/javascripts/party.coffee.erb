@@ -14,7 +14,6 @@ class ChatVM
       if @newText().length > 0
         $.post data.action, { 'chat_message': { 'text': @newText() } }, (res) =>
           @newText ''
-          console.log 'jobs done!'
 
     @subscription = party.client.subscribe "/#{@nickname}/party/chat/messages/new", (data) =>
       for message in JSON.parse(data)
