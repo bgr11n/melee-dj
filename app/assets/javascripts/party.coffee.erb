@@ -1,12 +1,34 @@
 class @PartyVM
   constructor: (data) ->
-    @faye = <%= Rails.application.config.faye.to_json %>
+    @nickname = data.nickname
+    @faye = data.faye
     @client = new Faye.Client(@faye.server)
-    @chat = new ChatVM(data.nickname, @)
+    @chat = new ChatVM @
+    @playlist = new PlaylistVM @
+
+class PlaylistVM
+  constructor: (party) ->
+    @party = party
+    @songs = ko.observableArray []
+    @newUri = ko.observable ''
+
+    @sendUri = (data) =>
+      if @newUri().length > 0
+        $.post data.action, { 'playlist_song': { 'uri': @newUri() } }, (res) =>
+          @newUri ''
+
+    @subscription = @party.client.subscribe "/#{@party.nickname}/party/playlist/songs/new", (data) =>
+      console.log data
+      for song in JSON.parse(data)
+        @songs.push new SongVM(song)
+
+    $(document).on 'ready page:change', =>
+      # Sure we need this?
+      @subscription.cancel()
 
 class ChatVM
-  constructor: (nickname, party) ->
-    @nickname = nickname
+  constructor: (party) ->
+    @party = party
     @messages = ko.observableArray []
     @newText = ko.observable ''
 
@@ -15,13 +37,20 @@ class ChatVM
         $.post data.action, { 'chat_message': { 'text': @newText() } }, (res) =>
           @newText ''
 
-    @subscription = party.client.subscribe "/#{@nickname}/party/chat/messages/new", (data) =>
+    @subscription = @party.client.subscribe "/#{@party.nickname}/party/chat/messages/new", (data) =>
+      console.log data
       for message in JSON.parse(data)
         @messages.push new MessageVM(message)
 
     $(document).on 'ready page:change', =>
       # Sure we need this?
       @subscription.cancel()
+
+class SongVM
+  constructor: (data) ->
+    @uri = data.uri
+    @created = data.created_at
+    @user = new UserVM(data.user)
 
 class MessageVM
   constructor: (data) ->

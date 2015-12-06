@@ -1,19 +1,24 @@
+- if party_owner_or_admin
+  h2 Party owner or admin
+p <~------------------------------------------------------------------------------------------------~>
+
 .row#playlist
-  .small-8.columns
-    h4 Playlist
-    - if party_owner_or_admin
-      p Party owner or admin
+  .small-6.columns
+    h4 Video Player
 
-    = @user.party.playlist.songs.to_json
+  .small-3.columns
+    = render 'playlist'
 
-  .small-4.columns.chat-container
+  .small-3.columns.chat-container
     = render 'chat'
 
 javascript:
   $(document).on('ready page:load', function () {
     if ($('#playlist').length > 0) {
       data = {}
+      data['playlist-id'] = #{{ @party.playlist.id }}
       data['nickname'] = #{{ @user.nickname.to_json }}
+      data['faye'] = #{{ Rails.application.config.faye.to_json }}
 
       ko.applyBindings(new PartyVM(data));
     };

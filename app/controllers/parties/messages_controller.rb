@@ -24,13 +24,13 @@ module Parties
     end
 
     def bloadcast_message
-      FayeClient::Broadcaster.publish "/#{@user.nickname}/party/chat/messages/new", [@message]
+      FayeClient::Broadcaster.publish "/#{@dj.nickname}/party/chat/messages/new", [@message]
       render json: { status: :ok }
     end
 
     def find_chat
       @chat = Party::Chat.includes(:messages, :party).find(params[:chat_id]) || not_found
-      @user = @chat.party.user
+      @dj = @chat.party.user
     end
 
     def message_params

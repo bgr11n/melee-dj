@@ -13,6 +13,8 @@ class User
   field :password_salt,         type: String
 
   has_one :party
+  has_many :added_songs,        class_name: 'Playlist::Song'
+  has_many :chat_messages,      class_name: 'Chat::Message'
 
   alias_method :grand?, :grand
 
