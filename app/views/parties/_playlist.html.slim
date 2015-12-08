@@ -1,13 +1,13 @@
 h4 Playlist
 
 div data-bind="with: playlist"
-  ul#chat data-bind="foreach: songs"
-    li
-      span data-bind="text: uri"
-
   = simple_form_for Playlist::Song.new, url: playlist_songs_path(@party.playlist.id), html: { 'data-bind' => 'submit: sendUri' } do |f|
     .row.collapse
       .small-10.columns
         = f.input :uri, label: false, input_html: { 'data-bind' => 'value: newUri' }
       .small-2.columns
         = f.submit 'Add', class: 'button postfix'
+
+  ul#chat data-bind="foreach: songs"
+    li
+      span data-bind="text: uri"

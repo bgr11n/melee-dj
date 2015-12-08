@@ -25,6 +25,7 @@ class PlaylistVM
       # Sure we need this?
       @subscription.cancel()
 
+    # TODO: MB fetch in some other way?
     $.get "/playlists/#{@id}/songs", (data) =>
       for song in data
         @songs.push new SongVM(song)
