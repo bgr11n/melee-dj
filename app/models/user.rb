@@ -29,6 +29,16 @@ class User
     self.party.present?
   end
 
+  def as_json options={}
+    {
+      id: id.to_s,
+      nickname: nickname,
+      email: email,
+      source: source,
+      grand: grand
+    }
+  end
+
   SOURCES.each do |_source|
     define_method "from_#{_source}?" do
       _source.to_s == source.to_s

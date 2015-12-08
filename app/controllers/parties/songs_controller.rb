@@ -8,9 +8,9 @@ module Parties
       save_song || render(json: { success: false })
     end
 
+    # API? : Potential URL for API
     def index
-      # MB we don't need this
-      render json: { songs: @playlist.songs }
+      render json: @playlist.songs
     end
 
   private

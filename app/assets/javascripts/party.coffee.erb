@@ -1,13 +1,13 @@
 class @PartyVM
   constructor: (data) ->
     @nickname = data.nickname
-    @faye = data.faye
-    @client = new Faye.Client @faye.server
+    @client = new Faye.Client data.fayeServer
     @chat = new ChatVM @
-    @playlist = new PlaylistVM @
+    @playlist = new PlaylistVM data.playlistId, @
 
 class PlaylistVM
-  constructor: (party) ->
+  constructor: (id, party) ->
+    @id = id
     @party = party
     @songs = ko.observableArray []
     @newUri = ko.observable ''
@@ -24,6 +24,10 @@ class PlaylistVM
     $(document).on 'ready page:change', =>
       # Sure we need this?
       @subscription.cancel()
+
+    $.get "/playlists/#{@id}/songs", (data) =>
+      for song in data
+        @songs.push new SongVM(song)
 
 class ChatVM
   constructor: (party) ->

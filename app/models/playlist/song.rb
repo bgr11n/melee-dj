@@ -10,7 +10,6 @@ module Playlist
     belongs_to :user
 
     # TODO: We need to fetch data from youtube!!!
-
     def as_json options={}
       {
         id: id.to_s,

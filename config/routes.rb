@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   # Party routes
   resources :chats, controller: 'parties/chats', only: [] do
-    resources :messages, only: [:index, :create], controller: 'parties/messages'
+    resources :messages, only: [:create], controller: 'parties/messages'
   end
   resources :playlists, controller: 'parties/playlists', only: [] do
     resources :songs, only: [:index, :create], controller: 'parties/songs'

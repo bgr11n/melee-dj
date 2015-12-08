@@ -8,11 +8,6 @@ module Parties
       save_message || render(json: { success: false })
     end
 
-    def index
-      # MB we don't need this
-      render json: { messages: @chat.messages }
-    end
-
   private
 
     def build_message
