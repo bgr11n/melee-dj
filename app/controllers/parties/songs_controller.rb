@@ -25,7 +25,7 @@ module Parties
 
     def bloadcast_song
       FayeClient::Broadcaster.publish "/#{@dj.nickname}/party/playlist/songs/new", [@song]
-      render json: { status: :ok }
+      render json: { success: true }
     end
 
     def find_playlist
