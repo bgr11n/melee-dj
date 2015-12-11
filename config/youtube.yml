@@ -1,0 +1,8 @@
+development:
+  api_key: AIzaSyD3rL-VvDj1uFalwvGKRzOAtPJ5Su_I5vY
+test:
+  api_key: AIzaSyD3rL-VvDj1uFalwvGKRzOAtPJ5Su_I5vY
+qa:
+  api_key: AIzaSyD3rL-VvDj1uFalwvGKRzOAtPJ5Su_I5vY
+production:
+  api_key: AIzaSyD3rL-VvDj1uFalwvGKRzOAtPJ5Su_I5vY

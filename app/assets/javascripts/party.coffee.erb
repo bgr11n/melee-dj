@@ -1,21 +1,28 @@
 class @PartyVM
   constructor: (data) ->
     @nickname = data.nickname
+    # Catch "Faye is not defined" - in case if ws server is down
     @client = new Faye.Client data.fayeServer
-    @chat = new ChatVM @
+
+    @searcher = new SearcherVM @
     @playlist = new PlaylistVM data.playlistId, @
+    @chat = new ChatVM @
+
+class SearcherVM
+  constructor: (party) ->
+    @query = ko.observable ''
+    @results = ko.observableArray []
+
+    @search = (data) =>
+      # if @query().length > 0
+        # $.post data.action, { 'playlist_song': { 'uri': @newUri() } }, (res) =>
+        #   @newUri ''
 
 class PlaylistVM
   constructor: (id, party) ->
     @id = id
     @party = party
     @songs = ko.observableArray []
-    @newUri = ko.observable ''
-
-    @sendUri = (data) =>
-      if @newUri().length > 0
-        $.post data.action, { 'playlist_song': { 'uri': @newUri() } }, (res) =>
-          @newUri ''
 
     @subscription = @party.client.subscribe "/#{@party.nickname}/party/playlist/songs/new", (data) =>
       for song in JSON.parse(data)

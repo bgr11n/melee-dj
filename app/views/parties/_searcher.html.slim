@@ -1,0 +1,11 @@
+h4 Playlist
+
+div data-bind="with: searcher"
+  = simple_form_for Playlist::Song.new, url: playlist_songs_path(@party.playlist.id), html: { 'data-bind' => 'submit: search' } do |f|
+    .row.collapse
+      .small-10.columns
+        = f.input :uri, label: false, input_html: { 'data-bind' => 'value: query' }
+      .small-2.columns
+        = f.submit 'Add', class: 'button postfix'
+
+  ul#chat data-bind="foreach: results"

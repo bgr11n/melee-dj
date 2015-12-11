@@ -1,5 +1,3 @@
-require "net/http"
-
 module UsersHelper
   def party_owner_or_admin
     user_signed_in? && (party_owner || current_user.grand?)

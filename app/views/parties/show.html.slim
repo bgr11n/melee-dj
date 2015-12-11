@@ -3,14 +3,27 @@
 p <~------------------------------------------------------------------------------------------------~>
 
 .row#playlist
-  .small-6.columns
+  .small-8.columns
     h4 Video Player
 
-  .small-3.columns
-    = render 'playlist'
+  .small-4.columns
+    ul class="tabs" data-tab=""
+      li.tab-title
+        a href="#panel1" +
+      li.tab-title
+        a href="#panel2" Playlist
+      li.tab-title.active
+        a href="#panel3" Chat
 
-  .small-3.columns.chat-container
-    = render 'chat'
+    div.tabs-content
+      div.content id="panel1"
+        = render 'searcher'
+
+      div.content id="panel2"
+        = render 'playlist'
+
+      div.content.chat-container.active id="panel3"
+        = render 'chat'
 
 javascript:
   $(document).on('ready page:load', function () {

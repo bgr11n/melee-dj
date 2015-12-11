@@ -1,6 +1,17 @@
 Rails.application.routes.draw do
   root to: 'application#home'
 
+  # API
+  namespace :api, defaults: { format: 'json' } do
+    namespace :v1 do
+      namespace :youtube do
+        resources :search, only: [:index]
+      end
+    end
+  end
+
+  '/api/v1/youtube/search?q=asd'
+
   resource :settings, only: [] do
     root to: 'users/settings/profiles#show'
     resource :profile, controller: 'users/settings/profiles', only: [:show, :update]
