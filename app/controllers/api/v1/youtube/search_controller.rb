@@ -1,8 +1,10 @@
+require 'youtube'
+
 module Api::V1::Youtube
   class SearchController < Api::ApiController
     def index
-      videos = Yt::Collections::Videos.new
-      res = videos.where(q: params[:q], order: 'relevance', 'maxResults' => 10).map(&:title).size
+      videos = Youtube::Searcher.new
+      res = videos.where(q: params[:q], maxResults: 10)
       render json: res
     end
 
