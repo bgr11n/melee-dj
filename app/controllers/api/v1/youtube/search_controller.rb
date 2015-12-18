@@ -3,9 +3,8 @@ require 'youtube'
 module Api::V1::Youtube
   class SearchController < Api::ApiController
     def index
-      videos = Youtube::Searcher.new
-      res = videos.where(q: params[:q], maxResults: 10)
-      render json: res
+      videos = ::Youtube::Searcher.new
+      render json: videos.where(q: params[:q], maxResults: 10, type: 'video')
     end
 
   private

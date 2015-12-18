@@ -1,7 +1,7 @@
 class @PartyVM
   constructor: (data) ->
     @nickname = data.nickname
-    # Catch "Faye is not defined" - in case if ws server is down
+    # TODO: Catch "Faye is not defined" - in case if ws server is down
     @client = new Faye.Client data.fayeServer
 
     @searcher = new SearcherVM @
@@ -10,13 +10,23 @@ class @PartyVM
 
 class SearcherVM
   constructor: (party) ->
+    @party = party
     @query = ko.observable ''
     @results = ko.observableArray []
 
-    @search = (data) =>
-      # if @query().length > 0
-        # $.post data.action, { 'playlist_song': { 'uri': @newUri() } }, (res) =>
-        #   @newUri ''
+    @update = (data, event) =>
+      if event.keyCode == 13 then @search() else true
+
+    @search = () =>
+      if @query().length > 0
+        $.get '/api/v1/youtube/search', { q: @query() }, (res) =>
+          for song in res
+            @results.push new SongVM(song)
+
+    @addToPlaylist = (song) =>
+      $.post "/api/v1/#{@party.nickname}/playlist/song", { song: song }, (res) =>
+        @query ''
+        @results []
 
 class PlaylistVM
   constructor: (id, party) ->
@@ -24,15 +34,15 @@ class PlaylistVM
     @party = party
     @songs = ko.observableArray []
 
-    @subscription = @party.client.subscribe "/#{@party.nickname}/party/playlist/songs/new", (data) =>
+    @subscription = @party.client.subscribe "/#{@party.nickname}/playlist/songs/new", (data) =>
       for song in JSON.parse(data)
-        @songs.push new SongVM(song)
+        @songs.push new SongVM(song.track)
 
     $(document).on 'ready page:change', =>
       # Sure we need this?
       @subscription.cancel()
 
-    # TODO: MB fetch in some other way?
+    # TODO: MB fetch in some other way? API
     $.get "/playlists/#{@id}/songs", (data) =>
       for song in data
         @songs.push new SongVM(song)
@@ -48,7 +58,7 @@ class ChatVM
         $.post data.action, { 'chat_message': { 'text': @newText() } }, (res) =>
           @newText ''
 
-    @subscription = @party.client.subscribe "/#{@party.nickname}/party/chat/messages/new", (data) =>
+    @subscription = @party.client.subscribe "/#{@party.nickname}/chat/messages/new", (data) =>
       for message in JSON.parse(data)
         @messages.push new MessageVM(message)
 
@@ -59,8 +69,10 @@ class ChatVM
 class SongVM
   constructor: (data) ->
     @uri = data.uri
+    @title = data.title
+    @thumbnail = data.thumbnail
     @created = data.created_at
-    @user = new UserVM(data.user)
+    @user = new UserVM(data.user) if data.user
 
 class MessageVM
   constructor: (data) ->

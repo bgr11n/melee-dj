@@ -19,7 +19,7 @@ module Parties
     end
 
     def bloadcast_message
-      FayeClient::Broadcaster.publish "/#{@dj.nickname}/party/chat/messages/new", [@message]
+      FayeClient::Broadcaster.publish "/#{@dj.nickname}/chat/messages/new", [@message]
       render json: { success: true }
     end
 

@@ -1,6 +1,6 @@
 class Api::ApiController < ActionController::Base
   include UsersHelper
-  # before_action :authenticate!
+  before_action :authenticate!
 
 private
 

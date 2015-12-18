@@ -1,0 +1,27 @@
+.add-track {
+  width: 600px;
+}
+.search__list {
+  list-style-type: none;
+  margin: 0;
+}
+.search__list__item {
+  overflow: hidden;
+  padding: 10px;
+  &:hover {
+    background-color: rgb(171, 217, 240);
+    cursor: pointer;
+  }
+}
+.search__list__icon {
+  height: 60px;
+  width: 80px;
+  float: left;
+  margin-right: 10px;
+}
+.search__list__title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 60%;
+}

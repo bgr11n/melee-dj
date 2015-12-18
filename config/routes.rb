@@ -7,10 +7,13 @@ Rails.application.routes.draw do
       namespace :youtube do
         resources :search, only: [:index]
       end
+      scope '/:nickname' do
+        resource :playlist, only: [] do
+          resource :song, only: [:create], controller: 'playlist/song'
+        end
+      end
     end
   end
-
-  '/api/v1/youtube/search?q=asd'
 
   resource :settings, only: [] do
     root to: 'users/settings/profiles#show'

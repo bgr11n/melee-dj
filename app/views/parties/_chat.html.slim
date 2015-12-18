@@ -7,7 +7,7 @@ div data-bind="with: chat"
       span &nbsp;-&nbsp;
       span data-bind="text: user.nickname"
 
-  = simple_form_for Chat::Message.new, url: chat_messages_path(@party.chat.id), html: { 'data-bind' => 'submit: sendText' } do |f|
+  = simple_form_for Chat::Message.new, url: chat_messages_path(@party.chat.id), html: { 'data-bind' => 'submit: sendText', autocomplete: 'off' } do |f|
     .row.collapse
       .small-10.columns
         = f.input :text, label: false, input_html: { 'data-bind' => 'value: newText' }

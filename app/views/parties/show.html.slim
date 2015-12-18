@@ -9,21 +9,21 @@ p <~----------------------------------------------------------------------------
   .small-4.columns
     ul class="tabs" data-tab=""
       li.tab-title
-        a href="#panel1" +
+        a data-reveal-id="myModal" href="javascript:void" +
       li.tab-title
-        a href="#panel2" Playlist
+        a href="#panel1" Playlist
       li.tab-title.active
-        a href="#panel3" Chat
+        a href="#panel2" Chat
 
     div.tabs-content
       div.content id="panel1"
-        = render 'searcher'
-
-      div.content id="panel2"
         = render 'playlist'
 
-      div.content.chat-container.active id="panel3"
+      div.content.chat-container.active id="panel2"
         = render 'chat'
+
+div id="myModal" class="reveal-modal add-track" data-reveal='' aria-labelledby="modalTitle" aria-hidden="true" role="dialog"
+  = render 'searcher'
 
 javascript:
   $(document).on('ready page:load', function () {
