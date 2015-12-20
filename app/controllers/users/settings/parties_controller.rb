@@ -35,11 +35,11 @@ module Users
       end
 
       def create_chat
-        Party::Chat.create! party_id: @party.id
+        Party::Chat.create party_id: @party.id
       end
 
       def create_playlist
-        Party::Playlist.create! party_id: @party.id
+        Party::Playlist.create party_id: @party.id
       end
 
       def save_party

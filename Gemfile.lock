@@ -113,6 +113,8 @@ GEM
       mongo (~> 2.1)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
+    mongoid_includes (1.1.0)
+      mongoid (>= 4.0.0, < 6.0.0)
     multi_json (1.11.2)
     multi_xml (0.5.5)
     nokogiri (1.6.7)
@@ -217,6 +219,7 @@ DEPENDENCIES
   jquery-rails
   knockoutjs-rails
   mongoid
+  mongoid_includes
   rails (= 4.2.4)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
@@ -228,3 +231,6 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.10.6

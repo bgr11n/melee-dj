@@ -15,7 +15,8 @@ module Api::V1::Playlist
     end
 
     def find_playlist
-      @dj = User.includes(:party).find_by(nickname: params[:nickname]) || not_found
+      @dj = User.includes(party: :playlist).find_by(nickname: params[:nickname]) || not_found
+      byebug
       @playlist = @dj.party.playlist
     end
 

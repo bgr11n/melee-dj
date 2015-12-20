@@ -16,6 +16,7 @@ class User
     end
 
     def validate_password_correct
+      # TODO: Error when user try to sign in (form) if he registered form Twitch
       errors.add(:password, 'Incorrect password') if user && !user.has_password?(password)
     end
   end

@@ -1,7 +1,9 @@
+require 'youtube/serializers/video_serializer'
+
 module Youtube
   class Searcher
     include HTTParty
-    include ::Youtube::VideoSerializer
+    include ::Youtube::Serializer::VideoSerializer
     base_uri Settings.youtube.api_url
     default_options.update(verify: false)
 
