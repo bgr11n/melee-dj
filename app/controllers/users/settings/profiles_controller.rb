@@ -24,7 +24,7 @@ module Users
       end
 
       def user_params
-        params[:user] ? params[:user].permit(:email, :nickname) : {}
+        params[:user] ? params[:user].permit(:nickname) : {}
       end
     end
   end
