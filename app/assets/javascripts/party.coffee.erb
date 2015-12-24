@@ -23,6 +23,7 @@ class SearcherVM
 
     @search = () =>
       if @query().length > 0
+        @results []
         $.get '/api/v1/youtube/search', { q: @query() }, (res) =>
           for song in res
             @results.push new TrackVM(song)
