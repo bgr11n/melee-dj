@@ -5,16 +5,16 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :nickname,              type: String
-  field :email,                 type: String
-  field :source,                type: String
-  field :grand,                 type: Boolean,      default: false
-  field :password_hash,         type: String
-  field :password_salt,         type: String
+  field :nickname, type: String
+  field :email, type: String
+  field :source, type: String
+  field :grand, type: Boolean, default: false
+  field :password_hash, type: String
+  field :password_salt, type: String
 
   has_one :party
-  has_many :added_songs,        class_name: 'Playlist::Song'
-  has_many :chat_messages,      class_name: 'Chat::Message'
+  has_many :added_songs, class_name: 'Playlist::Song'
+  has_many :chat_messages, class_name: 'Chat::Message'
 
   alias_method :grand?, :grand
 

@@ -9,7 +9,7 @@ module Api::V1::Playlist
     def create
       build_queue
       @song = @queue.add uri: song_params[:uri], user_id: current_user.id
-      save_queue || render(json: @queue.errors.merge({ success: false })
+      save_queue || render(json: @queue.errors.merge({ success: false }))
       # find_playlist
       # fetch_track
       # build_song

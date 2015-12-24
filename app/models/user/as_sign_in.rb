@@ -1,23 +1,22 @@
-class User
-  class AsSignIn < PlainModel
-    attr_accessor :email, :password
 
-    validate :validate_user_exists
-    validate :validate_password_correct
+class User::AsSignIn < PlainModel
+  attr_accessor :email, :password
 
-    def user
-      User.where(email: email).first if email.present?
-    end
+  validate :validate_user_exists
+  validate :validate_password_correct
 
-    private
+  def user
+    User.where(email: email).first if email.present?
+  end
 
-    def validate_user_exists
-      errors.add(:email, 'User not found') if user.blank?
-    end
+  private
 
-    def validate_password_correct
-      # TODO: Error when user try to sign in (form) if he registered form Twitch
-      errors.add(:password, 'Incorrect password') if user && !user.has_password?(password)
-    end
+  def validate_user_exists
+    errors.add(:email, 'User not found') if user.blank?
+  end
+
+  def validate_password_correct
+    # TODO: Error when user try to sign in (form) if he registered form Twitch
+    errors.add(:password, 'Incorrect password') if user && !user.has_password?(password)
   end
 end

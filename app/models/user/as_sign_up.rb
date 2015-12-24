@@ -1,28 +1,26 @@
-class User
-  class AsSignUp < ActiveType::Record[User]
-    attr_accessor :password
+class User::AsSignUp < ActiveType::Record[User]
+  attr_accessor :password
 
-    validates :password, presence: true, confirmation: true, if: lambda { new_record? || !password.nil? }
+  validates :password, presence: true, confirmation: true, if: lambda { new_record? || !password.nil? }
 
-    before_save :set_source
-    before_save :set_nickname
-    before_save :encrypt_password
+  before_save :set_source
+  before_save :set_nickname
+  before_save :encrypt_password
 
-    private
+  private
 
-    def set_source
-      self.source = 'auth'
-    end
+  def set_source
+    self.source = 'auth'
+  end
 
-    def set_nickname
-      self.nickname = email.match(/^[^\@]*/)[0] if nickname.blank?
-    end
+  def set_nickname
+    self.nickname = email.match(/^[^\@]*/)[0] if nickname.blank?
+  end
 
-    def encrypt_password
-      if password.present?
-        self.password_salt = BCrypt::Engine.generate_salt
-        self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
-      end
+  def encrypt_password
+    if password.present?
+      self.password_salt = BCrypt::Engine.generate_salt
+      self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
 end

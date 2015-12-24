@@ -4,10 +4,10 @@ class Track
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :uri,              type: String
-  field :title,            type: String
-  field :thumbnail,        type: String
-  field :duration,         type: Integer
+  field :uri, type: String
+  field :title, type: String
+  field :thumbnail, type: String
+  field :duration, type: Integer
 
   index({ uri: 1 }, { unique: true })
 
