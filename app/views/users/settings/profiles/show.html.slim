@@ -7,6 +7,6 @@
   = simple_form_for @user, url: settings_profile_path, method: :put do |f|
 
     = f.input :nickname
-    = f.input :email
+    = f.input :email, disabled: true
 
     = f.submit 'Save', class: 'button small'
