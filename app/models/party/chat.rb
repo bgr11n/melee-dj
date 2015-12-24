@@ -1,5 +1,5 @@
 class Party
-  class Chat
+  class Party::Chat
     include Mongoid::Document
     include Mongoid::Timestamps
 

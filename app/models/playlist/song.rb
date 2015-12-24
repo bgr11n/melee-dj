@@ -9,6 +9,10 @@ module Playlist
     belongs_to :playlist,              class_name: 'Party::Playlist'
     belongs_to :user
 
+    index({ track_uri: 1 }, { unique: true })
+
+    default_scope ->{ order_by(created_at: :asc) }
+
     def as_json options={}
       {
         id: id.to_s,

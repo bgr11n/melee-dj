@@ -1,0 +1,26 @@
+.playlist {
+  list-style: none;
+  margin: 0;
+}
+.playlist__item {
+  overflow: hidden;
+  padding: 10px;
+  background-color: #FFD0F7;
+  margin-bottom: 5px;
+  position: relative;
+}
+.playlist__item__number {
+  margin-right: 10px
+}
+.playlist__item__wrapper {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 80%;
+  margin: 0;
+}
+.playlist__item__duration {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}

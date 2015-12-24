@@ -1,4 +1,4 @@
-module Youtube::Serializer
+module Youtube::Serializers
   module VideoSerializer
     def serialize_video data
       {

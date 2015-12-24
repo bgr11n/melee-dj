@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       end
       scope '/:nickname' do
         resource :playlist, only: [] do
-          resource :song, only: [:create], controller: 'playlist/song'
+          resources :songs, only: [:index, :create], controller: 'playlist/songs'
         end
       end
     end
@@ -35,8 +35,10 @@ Rails.application.routes.draw do
   resources :chats, controller: 'parties/chats', only: [] do
     resources :messages, only: [:create], controller: 'parties/messages'
   end
-  resources :playlists, controller: 'parties/playlists', only: [] do
-    resources :songs, only: [:index, :create], controller: 'parties/songs'
-  end
+
+  # resources :playlists, controller: 'parties/playlists', only: [] do
+  #   resources :songs, only: [:index, :create], controller: 'parties/songs'
+  # end
+
   get '/:nickname', to: 'parties#show', constraints: { nickname: /[^\/]+/ }, as: :show_party
 end

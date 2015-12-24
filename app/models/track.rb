@@ -9,6 +9,8 @@ class Track
   field :thumbnail,        type: String
   field :duration,         type: Integer
 
+  index({ uri: 1 }, { unique: true })
+
   def update_info data
     video = Youtube::Video.new data[:uri]
     update title: data[:title],

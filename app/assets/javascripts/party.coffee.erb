@@ -5,7 +5,7 @@ class @PartyVM
     @client = new Faye.Client data.fayeServer
 
     @searcher = new SearcherVM @
-    @playlist = new PlaylistVM data.playlistId, @
+    @playlist = new PlaylistVM @
     @chat = new ChatVM @
 
 class SearcherVM
@@ -14,6 +14,10 @@ class SearcherVM
     @query = ko.observable ''
     @results = ko.observableArray []
 
+    @open = () -> $('#searcher-modal').foundation('reveal', 'open')
+
+    @close = () -> $('#searcher-modal').foundation('reveal', 'close')
+
     @update = (data, event) =>
       if event.keyCode == 13 then @search() else true
 
@@ -21,31 +25,30 @@ class SearcherVM
       if @query().length > 0
         $.get '/api/v1/youtube/search', { q: @query() }, (res) =>
           for song in res
-            @results.push new SongVM(song)
+            @results.push new TrackVM(song)
 
     @addToPlaylist = (song) =>
-      $.post "/api/v1/#{@party.nickname}/playlist/song", { song: song }, (res) =>
+      $.post "/api/v1/#{@party.nickname}/playlist/songs", { song: song }, (res) =>
         @query ''
         @results []
+        do @close
 
 class PlaylistVM
-  constructor: (id, party) ->
-    @id = id
+  constructor: (party) ->
     @party = party
     @songs = ko.observableArray []
 
     @subscription = @party.client.subscribe "/#{@party.nickname}/playlist/songs/new", (data) =>
       for song in JSON.parse(data)
-        @songs.push new SongVM(song.track)
+        @songs.push new TrackVM(song.track)
 
     $(document).on 'ready page:change', =>
       # Sure we need this?
       @subscription.cancel()
 
-    # TODO: MB fetch in some other way? API
-    $.get "/playlists/#{@id}/songs", (data) =>
+    $.get "/api/v1/#{@party.nickname}/playlist/songs", (data) =>
       for song in data
-        @songs.push new SongVM(song)
+        @songs.push new TrackVM(song.track)
 
 class ChatVM
   constructor: (party) ->
@@ -66,13 +69,26 @@ class ChatVM
       # Sure we need this?
       @subscription.cancel()
 
-class SongVM
+class TrackVM
   constructor: (data) ->
     @uri = data.uri
     @title = data.title
     @thumbnail = data.thumbnail
+    @duration = data.duration
     @created = data.created_at
     @user = new UserVM(data.user) if data.user
+
+    @durationString = () =>
+      hours = parseInt( @duration / 3600 ) % 24
+      minutes = parseInt( @duration / 60 ) % 60
+      seconds = @duration % 60
+
+      minutes = if (minutes < 10) && (hours > 0) then "0" + minutes else minutes
+      seconds = if seconds < 10 then "0" + seconds else seconds
+
+      "#{if hours > 0 then hours + ':' else ''}" +
+      "#{minutes + ':'}" +
+      "#{seconds}"
 
 class MessageVM
   constructor: (data) ->

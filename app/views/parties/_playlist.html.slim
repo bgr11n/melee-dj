@@ -1,6 +1,7 @@
-h4 Playlist
-
 div data-bind="with: playlist"
-  ul#chat data-bind="foreach: songs"
-    li
-      span data-bind="text: uri"
+  ul.playlist data-bind="foreach: songs"
+    li.playlist__item
+      p.playlist__item__wrapper
+        span.playlist__item__number data-bind="text: $index() + 1"
+        span.playlist__item__title data-bind="text: title, attr: { title: title }"
+        span.playlist__item__duration data-bind="text: durationString()"

@@ -1,15 +1,15 @@
 - if party_owner_or_admin
-  h2 Party owner or admin
+  h2 You are party owner or admin
 p <~------------------------------------------------------------------------------------------------~>
 
 .row#playlist
+  button.button.tiny data-bind="click: searcher.open" Add
+
   .small-8.columns
     h4 Video Player
 
   .small-4.columns
     ul class="tabs" data-tab=""
-      li.tab-title
-        a data-reveal-id="myModal" href="javascript:void" +
       li.tab-title
         a href="#panel1" Playlist
       li.tab-title.active
@@ -22,7 +22,7 @@ p <~----------------------------------------------------------------------------
       div.content.chat-container.active id="panel2"
         = render 'chat'
 
-div id="myModal" class="reveal-modal add-track" data-reveal='' aria-labelledby="modalTitle" aria-hidden="true" role="dialog"
+div id="searcher-modal" class="reveal-modal add-track" data-reveal='' aria-labelledby="modalTitle" aria-hidden="true" role="dialog"
   = render 'searcher'
 
 javascript:

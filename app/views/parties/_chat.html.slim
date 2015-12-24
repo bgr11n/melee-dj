@@ -1,11 +1,12 @@
-h4 Chat
-
 div data-bind="with: chat"
-  ul#chat data-bind="foreach: messages"
-    li
-      span data-bind="text: text"
-      span &nbsp;-&nbsp;
-      span data-bind="text: user.nickname"
+  div data-bind="visible: messages.length > 0"
+    ul#chat data-bind="foreach: messages"
+      li
+        span data-bind="text: text"
+        span &nbsp;-&nbsp;
+        span data-bind="text: user.nickname"
+  div data-bind="if: messages.length == 0"
+    p Welcome to chat!
 
   = simple_form_for Chat::Message.new, url: chat_messages_path(@party.chat.id), html: { 'data-bind' => 'submit: sendText', autocomplete: 'off' } do |f|
     .row.collapse
